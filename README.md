@@ -5,7 +5,7 @@
 1. Instalar o docker e docker-compose.
 
 2. Executar download do repositorio
-  git clone
+  git clone https://github.com/joao-flavio-macedo/devopsProject.git
 
 3. Instalar o docker e docker-compose.
   apt get install docker docker-compose
