@@ -14,5 +14,5 @@
   docker-compose up
   
 5. Acessar a aplicacao via broswer.  
-  Acessar o endereço padrao do docker http://172.17.0.1
+  Acessar o endereço padrao do docker http://localhost
   
