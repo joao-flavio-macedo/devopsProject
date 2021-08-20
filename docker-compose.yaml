@@ -1,0 +1,48 @@
+version: '3.4'
+
+networks: 
+  dockerapi-dev:
+    driver: bridge
+services:    
+  dockerapi:
+    build: .      
+    image: devopsproject:1.0
+    depends_on:
+      - "postgres_image"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      CONNECTION_STRING: "host=172.17.0.1;port=5432;database=postgres;username=postgres;password=123456"
+      ASPNETCORE_URLS: "http://+:5000"
+    networks:
+      - dockerapi-dev
+               
+  postgres_image:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: "postgres"
+    networks:
+      - dockerapi-dev 
+
+  nginx_image: 
+    image: nginx:latest
+    container_name: nginx_proxy_reverso
+    ports:
+      - "80:80"      
+      - "443:443"      
+    volumes:
+      - ./devopsproject.conf:/etc/nginx/conf.d/default.conf       
+volumes:
+  db_volume:      
+
